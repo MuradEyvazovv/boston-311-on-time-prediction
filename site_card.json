@@ -1,0 +1,8 @@
+{
+  "title": "Boston 311: Will This Request Miss Its Deadline?",
+  "repo": "boston-311-on-time-prediction",
+  "summary": "Predicts, at submission time, whether a Boston 311 service request will miss the City's own SLA deadline, using a strict train-on-2025 / test-on-2026 split, explicit censoring and leakage checks, and honest baselines.",
+  "headline": "On 137,225 requests from January to June 2026, gradient boosting reached ROC-AUC 0.8934 (vs 0.8667 for a per-type late-rate baseline), and 90.3% of the 10% highest-risk requests it flagged really did miss their SLA (vs 81.2% for the baseline).",
+  "tags": ["Python", "scikit-learn", "classification", "gradient boosting", "logistic regression", "time-based validation", "data leakage", "censoring", "calibration", "civic data", "Boston 311"],
+  "figure": "figures/test_curves.png"
+}

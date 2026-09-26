@@ -1,0 +1,1270 @@
+{
+  "question": "Will a Boston 311 request miss its official SLA deadline? (predicted at submission time)",
+  "data": {
+    "source": "https://data.boston.gov/dataset/311-service-requests",
+    "license": "Open Data Commons Public Domain Dedication and License (PDDL)",
+    "export_snapshot": "2026-09-25 22:34:49.927000",
+    "legacy_cases_loaded_since_2024_09_01": 556561,
+    "funnel": [
+      {
+        "step": "legacy cases opened 2025-01-01 .. 2026-07-01 (excl.)",
+        "n": 426881
+      },
+      {
+        "step": "has an SLA deadline (drops types with no SLA, e.g. Needle Pickup)",
+        "n": 394439
+      },
+      {
+        "step": "SLA <= 90 days",
+        "n": 377172
+      },
+      {
+        "step": "outcome known at export (dropped 4 censored open cases)",
+        "n": 377168
+      }
+    ],
+    "label_agreement_with_portal_on_time": {
+      "n_compared": 505588,
+      "agreement": 0.9997863873351425,
+      "censored_cases_marked_ONTIME_by_portal": 1997
+    },
+    "new_system_file_not_modelled": {
+      "n_cases": 61375,
+      "open_date_min": "2025-08-01 06:35:06.539000+00:00",
+      "open_date_max": "2026-09-26 08:15:10.459600+00:00",
+      "n_service_names": 57,
+      "share_opened_2026_05_or_later": 0.8406843177189409,
+      "late_rate_known_outcomes": 0.2738249741256099,
+      "n_known_outcomes": 60871
+    }
+  },
+  "splits": {
+    "selection_train (opened 2025-01..10, deadline < 2025-11-01)": 204658,
+    "validation (opened 2025-11..12)": 31756,
+    "final_train (opened 2025-01..12, deadline < 2026-01-01)": 237274,
+    "test (opened 2026-01..06)": 137225,
+    "2025 cases excluded from final training because their deadline was after 2026-01-01": 2669
+  },
+  "late_rate_by_split": {
+    "selection_train": 0.35628707404548077,
+    "validation": 0.3706071293613805,
+    "final_train": 0.35742222072372026,
+    "test": 0.37407177992348334
+  },
+  "schema_audit": {
+    "n_request_types_in_study_population": 115,
+    "purity_within_type": {
+      "subject": 1.0,
+      "reason": 1.0,
+      "department": 0.9432,
+      "queue": 0.6955
+    },
+    "case_title_equals_type_share": 0.9356,
+    "submitted_photo_non_empty_share": 0.0
+  },
+  "largest_long_sla_types_excluded": {
+    "Tree Maintenance Requests": {
+      "n": 4714,
+      "median_sla_days": 365.0
+    },
+    "Unsatisfactory Living Conditions": {
+      "n": 3681,
+      "median_sla_days": 120.0
+    },
+    "Pest Infestation - Residential": {
+      "n": 2891,
+      "median_sla_days": 120.0
+    },
+    "New Tree Requests": {
+      "n": 1965,
+      "median_sla_days": 365.0
+    },
+    "Contractors Complaint": {
+      "n": 1114,
+      "median_sla_days": 720.0
+    },
+    "Working Beyond Hours": {
+      "n": 1024,
+      "median_sla_days": 720.0
+    },
+    "Mice Infestation - Residential": {
+      "n": 656,
+      "median_sla_days": 120.0
+    },
+    "Traffic Signal Repair": {
+      "n": 607,
+      "median_sla_days": 180.0
+    },
+    "Egress": {
+      "n": 144,
+      "median_sla_days": 720.0
+    },
+    "Squalid Living Conditions": {
+      "n": 107,
+      "median_sla_days": 180.0
+    }
+  },
+  "features": {
+    "categorical": [
+      "type",
+      "reason",
+      "subject",
+      "source",
+      "neighborhood",
+      "zipcode",
+      "pwd_district",
+      "city_council_district",
+      "police_district",
+      "ward"
+    ],
+    "numeric": [
+      "sla_hours",
+      "latitude",
+      "longitude",
+      "hour",
+      "dayofweek",
+      "month",
+      "is_weekend",
+      "is_holiday",
+      "type_vol_7d",
+      "type_backlog_30d",
+      "type_late_rate_30d",
+      "type_deadlines_30d",
+      "subject_vol_7d",
+      "subject_backlog_30d",
+      "subject_late_rate_30d",
+      "city_vol_1d",
+      "city_backlog_30d"
+    ],
+    "excluded_as_leakage": {
+      "closed_dt": "close timestamp - defines the target",
+      "case_status": "Open/Closed at export time - future information",
+      "closure_reason": "written when the case is closed",
+      "on_time": "the portal's ONTIME/OVERDUE flag - it IS the target",
+      "closed_photo": "uploaded by the crew at closure",
+      "queue": "current work queue; cases can be re-routed after intake (varies within a type)",
+      "department": "current queue's department code; varies within a type, unlike `subject`",
+      "case_title": "free text that staff can edit; mostly identical to `type` anyway",
+      "late": "target",
+      "censored": "derived from the close date"
+    }
+  },
+  "leakage_checks": {
+    "univariate_val_auc_by_feature": {
+      "type_late_rate_30d": 0.9136,
+      "type": 0.9128,
+      "reason": 0.8995,
+      "type_backlog_30d": 0.886,
+      "subject": 0.8196,
+      "subject_late_rate_30d": 0.8176,
+      "subject_backlog_30d": 0.8041,
+      "subject_vol_7d": 0.7331,
+      "type_deadlines_30d": 0.716,
+      "type_vol_7d": 0.7147,
+      "source": 0.6167,
+      "zipcode": 0.6036,
+      "neighborhood": 0.5806,
+      "ward": 0.5726,
+      "pwd_district": 0.5697,
+      "city_council_district": 0.5683,
+      "police_district": 0.559,
+      "sla_hours": 0.5525,
+      "longitude": 0.5254,
+      "hour": 0.52,
+      "city_vol_1d": 0.5099,
+      "city_backlog_30d": 0.5097,
+      "is_weekend": 0.5052,
+      "latitude": 0.5044,
+      "dayofweek": 0.5023,
+      "month": 0.5013,
+      "is_holiday": 0.5009
+    },
+    "features_with_univariate_auc_above_0.95": [],
+    "demo_test_auc_if_case_status_leaked": 0.9594803549436175
+  },
+  "model_selection": {
+    "criterion": "validation log loss (Nov-Dec 2025)",
+    "best_logistic_regression": {
+      "C": 0.03,
+      "val_log_loss": 0.3327933781275582,
+      "val_roc_auc": 0.925954313161912
+    },
+    "best_hist_gradient_boosting": {
+      "learning_rate": 0.05,
+      "max_leaf_nodes": 63,
+      "min_samples_leaf": 100,
+      "n_iter": 350,
+      "val_log_loss": 0.30182182350198633,
+      "val_roc_auc": 0.939262374991871
+    },
+    "all": {
+      "logistic_regression": [
+        {
+          "C": 0.03,
+          "val_log_loss": 0.3327933781275582,
+          "val_roc_auc": 0.925954313161912
+        },
+        {
+          "C": 0.3,
+          "val_log_loss": 0.33689689635752584,
+          "val_roc_auc": 0.9249096541862586
+        },
+        {
+          "C": 3.0,
+          "val_log_loss": 0.3373512247899653,
+          "val_roc_auc": 0.9250391333685444
+        }
+      ],
+      "hist_gradient_boosting": [
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 25,
+          "val_log_loss": 0.31749905218629726,
+          "val_roc_auc": 0.9356808431555794
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 50,
+          "val_log_loss": 0.3077243814773029,
+          "val_roc_auc": 0.9367861711863072
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 75,
+          "val_log_loss": 0.3054922600062619,
+          "val_roc_auc": 0.9375901477603742
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 100,
+          "val_log_loss": 0.30411524933419465,
+          "val_roc_auc": 0.9381257304034946
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 125,
+          "val_log_loss": 0.3031877549853301,
+          "val_roc_auc": 0.9384476067146084
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 150,
+          "val_log_loss": 0.3034202230748905,
+          "val_roc_auc": 0.9381766450512485
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 175,
+          "val_log_loss": 0.30331108713348043,
+          "val_roc_auc": 0.9382557431129621
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 200,
+          "val_log_loss": 0.30322117282317884,
+          "val_roc_auc": 0.9382146636455679
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 225,
+          "val_log_loss": 0.30303474105354083,
+          "val_roc_auc": 0.9382937425768247
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 250,
+          "val_log_loss": 0.30277136815898836,
+          "val_roc_auc": 0.9383683853677293
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 275,
+          "val_log_loss": 0.3032744294966647,
+          "val_roc_auc": 0.9382425856099523
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 300,
+          "val_log_loss": 0.3042923046433349,
+          "val_roc_auc": 0.9379272604174614
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 325,
+          "val_log_loss": 0.30404475370351813,
+          "val_roc_auc": 0.9380347034392136
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 350,
+          "val_log_loss": 0.30453543047222875,
+          "val_roc_auc": 0.9377897018056213
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 375,
+          "val_log_loss": 0.3056912012895885,
+          "val_roc_auc": 0.9373977591339716
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 400,
+          "val_log_loss": 0.3057796637256319,
+          "val_roc_auc": 0.9373303689117698
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 425,
+          "val_log_loss": 0.3062020148818351,
+          "val_roc_auc": 0.9371419190338448
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 450,
+          "val_log_loss": 0.30684725266246043,
+          "val_roc_auc": 0.9369524956282337
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 475,
+          "val_log_loss": 0.30709996492862984,
+          "val_roc_auc": 0.9368611732046768
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 31,
+          "min_samples_leaf": 100,
+          "n_iter": 500,
+          "val_log_loss": 0.3074818984182443,
+          "val_roc_auc": 0.9367746418977247
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 25,
+          "val_log_loss": 0.31504842461977584,
+          "val_roc_auc": 0.9360701968387534
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 50,
+          "val_log_loss": 0.30572074073888367,
+          "val_roc_auc": 0.9377605639944322
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 75,
+          "val_log_loss": 0.3055846417065195,
+          "val_roc_auc": 0.9378167246385399
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 100,
+          "val_log_loss": 0.3044392023872275,
+          "val_roc_auc": 0.9382711303769832
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 125,
+          "val_log_loss": 0.303659846574472,
+          "val_roc_auc": 0.9385447256665511
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 150,
+          "val_log_loss": 0.30333092462594785,
+          "val_roc_auc": 0.9387280570845007
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 175,
+          "val_log_loss": 0.30368385246225876,
+          "val_roc_auc": 0.9385553622004869
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 200,
+          "val_log_loss": 0.30447955812309074,
+          "val_roc_auc": 0.9382203262607567
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 225,
+          "val_log_loss": 0.3049298321095135,
+          "val_roc_auc": 0.9381064490287283
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 250,
+          "val_log_loss": 0.306040714412252,
+          "val_roc_auc": 0.9376874410120338
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 275,
+          "val_log_loss": 0.3062759045065292,
+          "val_roc_auc": 0.9374925803055018
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 300,
+          "val_log_loss": 0.3065808040850904,
+          "val_roc_auc": 0.9373495057453076
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 325,
+          "val_log_loss": 0.30703227341489786,
+          "val_roc_auc": 0.9372228259865216
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 350,
+          "val_log_loss": 0.30770509041306515,
+          "val_roc_auc": 0.9369422523314638
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 375,
+          "val_log_loss": 0.3082318406520111,
+          "val_roc_auc": 0.9367816053839703
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 400,
+          "val_log_loss": 0.3084717198269968,
+          "val_roc_auc": 0.9367998430860422
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 425,
+          "val_log_loss": 0.3090730503469531,
+          "val_roc_auc": 0.936689090495278
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 450,
+          "val_log_loss": 0.30945038652899576,
+          "val_roc_auc": 0.9366885080791512
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 475,
+          "val_log_loss": 0.30950487959458967,
+          "val_roc_auc": 0.9366402589416998
+        },
+        {
+          "learning_rate": 0.1,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 500,
+          "val_log_loss": 0.3098371776670056,
+          "val_roc_auc": 0.9365056124104935
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 25,
+          "val_log_loss": 0.3575993051676524,
+          "val_roc_auc": 0.9352702652934789
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 50,
+          "val_log_loss": 0.3148951305542039,
+          "val_roc_auc": 0.936660554230672
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 75,
+          "val_log_loss": 0.30756963078080757,
+          "val_roc_auc": 0.9375580213467245
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 100,
+          "val_log_loss": 0.3053349265152881,
+          "val_roc_auc": 0.9381583775906885
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 125,
+          "val_log_loss": 0.30445841845803084,
+          "val_roc_auc": 0.9384819033722926
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 150,
+          "val_log_loss": 0.3041408436974549,
+          "val_roc_auc": 0.938552309829837
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 175,
+          "val_log_loss": 0.30383760632798545,
+          "val_roc_auc": 0.9386111381098539
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 200,
+          "val_log_loss": 0.30353158514575557,
+          "val_roc_auc": 0.9386817018622645
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 225,
+          "val_log_loss": 0.3033838830153199,
+          "val_roc_auc": 0.9387769247733858
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 250,
+          "val_log_loss": 0.30281027691745116,
+          "val_roc_auc": 0.9389275579895903
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 275,
+          "val_log_loss": 0.3026442526732608,
+          "val_roc_auc": 0.9389585557062936
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 300,
+          "val_log_loss": 0.3025128955679141,
+          "val_roc_auc": 0.9389812167950804
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 325,
+          "val_log_loss": 0.3019264681205328,
+          "val_roc_auc": 0.9392114645953297
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 350,
+          "val_log_loss": 0.30182182350198633,
+          "val_roc_auc": 0.939262374991871
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 375,
+          "val_log_loss": 0.30211160564592215,
+          "val_roc_auc": 0.9391593170959204
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 400,
+          "val_log_loss": 0.30226872162394336,
+          "val_roc_auc": 0.9390911233945365
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 425,
+          "val_log_loss": 0.30229653502146087,
+          "val_roc_auc": 0.9390612543747795
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 450,
+          "val_log_loss": 0.3023579471912545,
+          "val_roc_auc": 0.9389657763909018
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 475,
+          "val_log_loss": 0.3021578195174119,
+          "val_roc_auc": 0.9390335067101119
+        },
+        {
+          "learning_rate": 0.05,
+          "max_leaf_nodes": 63,
+          "min_samples_leaf": 100,
+          "n_iter": 500,
+          "val_log_loss": 0.30256625845354096,
+          "val_roc_auc": 0.9388808669215585
+        }
+      ]
+    }
+  },
+  "test_metrics": {
+    "Majority class (baseline)": {
+      "n": 137225,
+      "late_rate": 0.37407177992348334,
+      "roc_auc": 0.5,
+      "pr_auc": 0.37407177992348334,
+      "brier": 0.23441929120990682,
+      "log_loss": 0.6616867308993285,
+      "ece_10bins": 0.016649559199763075,
+      "precision_at_5pct": 0.37044593412999127,
+      "recall_at_5pct": 0.04952076677316294,
+      "precision_at_10pct": 0.37316913211396924,
+      "recall_at_10pct": 0.0997623314891296,
+      "precision_at_20pct": 0.37223537985061034,
+      "recall_at_20pct": 0.19901815631574846
+    },
+    "Per-type late rate (baseline)": {
+      "n": 137225,
+      "late_rate": 0.37407177992348334,
+      "roc_auc": 0.8666915038911578,
+      "pr_auc": 0.7599406815473905,
+      "brier": 0.13638689621420078,
+      "log_loss": 0.45065329686463346,
+      "ece_10bins": 0.06100065601647609,
+      "precision_at_5pct": 0.8085106382978723,
+      "recall_at_5pct": 0.10808072936959401,
+      "precision_at_10pct": 0.8122859433068571,
+      "recall_at_10pct": 0.2171549910387283,
+      "precision_at_20pct": 0.816797230825287,
+      "recall_at_20pct": 0.4367061482116419
+    },
+    "Logistic regression": {
+      "n": 137225,
+      "late_rate": 0.37407177992348334,
+      "roc_auc": 0.8832697653997355,
+      "pr_auc": 0.8026512704912675,
+      "brier": 0.13046779093511415,
+      "log_loss": 0.4327632475615727,
+      "ece_10bins": 0.049089127721931115,
+      "precision_at_5pct": 0.8936170212765957,
+      "recall_at_5pct": 0.11945764825060391,
+      "precision_at_10pct": 0.881658529476062,
+      "recall_at_10pct": 0.2357009272968129,
+      "precision_at_20pct": 0.8561850974676626,
+      "recall_at_20pct": 0.45776513675679886
+    },
+    "HistGradientBoosting": {
+      "n": 137225,
+      "late_rate": 0.37407177992348334,
+      "roc_auc": 0.8934370352549085,
+      "pr_auc": 0.8216387627427616,
+      "brier": 0.1277143851654397,
+      "log_loss": 0.42153338840311094,
+      "ece_10bins": 0.046432855558014755,
+      "precision_at_5pct": 0.9095016030311862,
+      "recall_at_5pct": 0.12158108002805268,
+      "precision_at_10pct": 0.9030095460176346,
+      "recall_at_10pct": 0.24140886776279905,
+      "precision_at_20pct": 0.8684277646201494,
+      "recall_at_20pct": 0.4643107613184758
+    }
+  },
+  "test_metrics_excluding_parking_enforcement": {
+    "Majority class (baseline)": {
+      "n": 105580,
+      "late_rate": 0.23913620003788597,
+      "roc_auc": 0.5,
+      "pr_auc": 0.23913620003788597,
+      "brier": 0.19594166055901582,
+      "log_loss": 0.5825375553070794,
+      "ece_10bins": 0.11828602068583424,
+      "precision_at_5pct": 0.2358401212350824,
+      "recall_at_5pct": 0.04931083650190114,
+      "precision_at_10pct": 0.2331881038075393,
+      "recall_at_10pct": 0.09751267427122941,
+      "precision_at_20pct": 0.2376870619435499,
+      "recall_at_20pct": 0.1987880228136882
+    },
+    "Per-type late rate (baseline)": {
+      "n": 105580,
+      "late_rate": 0.23913620003788597,
+      "roc_auc": 0.8184054881643903,
+      "pr_auc": 0.6142514742931756,
+      "brier": 0.1327502193208311,
+      "log_loss": 0.4431368052575411,
+      "ece_10bins": 0.061468815627130725,
+      "precision_at_5pct": 0.8147376397044895,
+      "recall_at_5pct": 0.1703501267427123,
+      "precision_at_10pct": 0.7797878386057966,
+      "recall_at_10pct": 0.32608523447401777,
+      "precision_at_20pct": 0.6654195870430005,
+      "recall_at_20pct": 0.5565193282636248
+    },
+    "Logistic regression": {
+      "n": 105580,
+      "late_rate": 0.23913620003788597,
+      "roc_auc": 0.8378193558164228,
+      "pr_auc": 0.6416316051662473,
+      "brier": 0.12819622416410587,
+      "log_loss": 0.4297337812840549,
+      "ece_10bins": 0.058558333324835406,
+      "precision_at_5pct": 0.8134116309907179,
+      "recall_at_5pct": 0.17007287705956908,
+      "precision_at_10pct": 0.7777988255351392,
+      "recall_at_10pct": 0.3252534854245881,
+      "precision_at_20pct": 0.6882458799014965,
+      "recall_at_20pct": 0.5756099493029151
+    },
+    "HistGradientBoosting": {
+      "n": 105580,
+      "late_rate": 0.23913620003788597,
+      "roc_auc": 0.8558156804067463,
+      "pr_auc": 0.6780005938987795,
+      "brier": 0.12461922901459979,
+      "log_loss": 0.41502817617947596,
+      "ece_10bins": 0.05846645749701101,
+      "precision_at_5pct": 0.8370903580223528,
+      "recall_at_5pct": 0.17502376425855512,
+      "precision_at_10pct": 0.8004356885773821,
+      "recall_at_10pct": 0.3347195817490494,
+      "precision_at_20pct": 0.687630232998674,
+      "recall_at_20pct": 0.5750950570342205
+    }
+  },
+  "test_roc_auc_by_month": {
+    "2026-01": {
+      "n": 27079,
+      "late_rate": 0.32501200192030727,
+      "Per-type late rate (baseline)": 0.799,
+      "Logistic regression": 0.8168,
+      "HistGradientBoosting": 0.8462
+    },
+    "2026-02": {
+      "n": 28008,
+      "late_rate": 0.378677520708369,
+      "Per-type late rate (baseline)": 0.8163,
+      "Logistic regression": 0.8362,
+      "HistGradientBoosting": 0.8364
+    },
+    "2026-03": {
+      "n": 24201,
+      "late_rate": 0.39357877773645716,
+      "Per-type late rate (baseline)": 0.8843,
+      "Logistic regression": 0.8997,
+      "HistGradientBoosting": 0.9019
+    },
+    "2026-04": {
+      "n": 19456,
+      "late_rate": 0.38641036184210525,
+      "Per-type late rate (baseline)": 0.9026,
+      "Logistic regression": 0.9145,
+      "HistGradientBoosting": 0.9235
+    },
+    "2026-05": {
+      "n": 20421,
+      "late_rate": 0.3804906713677097,
+      "Per-type late rate (baseline)": 0.9244,
+      "Logistic regression": 0.9409,
+      "HistGradientBoosting": 0.9429
+    },
+    "2026-06": {
+      "n": 18060,
+      "late_rate": 0.3937984496124031,
+      "Per-type late rate (baseline)": 0.9111,
+      "Logistic regression": 0.9302,
+      "HistGradientBoosting": 0.9377
+    }
+  },
+  "ablation": {
+    "HGB without workload/backlog features": {
+      "n": 137225,
+      "late_rate": 0.37407177992348334,
+      "roc_auc": 0.8867655343009938,
+      "pr_auc": 0.816959076755642,
+      "brier": 0.13522258236631554,
+      "log_loss": 0.44262772039039333,
+      "ece_10bins": 0.06143079137013956,
+      "precision_at_5pct": 0.9266977557563393,
+      "recall_at_5pct": 0.12387984103483207,
+      "precision_at_10pct": 0.9081104714712527,
+      "recall_at_10pct": 0.24277253954648173,
+      "precision_at_20pct": 0.8612497722718163,
+      "recall_at_20pct": 0.46047299929868307
+    },
+    "HGB without workload/backlog features, excluding Parking Enforcement": {
+      "n": 105580,
+      "late_rate": 0.23913620003788597,
+      "roc_auc": 0.8510397291571883,
+      "pr_auc": 0.6745287872170675,
+      "brier": 0.12581305677292398,
+      "log_loss": 0.4237884763427801,
+      "ece_10bins": 0.061573066263182506,
+      "precision_at_5pct": 0.840310664898655,
+      "recall_at_5pct": 0.17569708491761724,
+      "precision_at_10pct": 0.7985413904148513,
+      "recall_at_10pct": 0.3339274397972117,
+      "precision_at_20pct": 0.6901875355180905,
+      "recall_at_20pct": 0.5772338403041825
+    }
+  },
+  "winter_drift_snow_types": {
+    "Request for Snow Plowing | Jan-Feb 2025": {
+      "n": 603,
+      "late_rate": 0.0464
+    },
+    "Request for Snow Plowing | Jan-Feb 2026": {
+      "n": 12129,
+      "late_rate": 0.3304
+    },
+    "Unshoveled Sidewalk | Jan-Feb 2025": {
+      "n": 5927,
+      "late_rate": 0.026
+    },
+    "Unshoveled Sidewalk | Jan-Feb 2026": {
+      "n": 11162,
+      "late_rate": 0.1483
+    }
+  },
+  "open_case_stats": {
+    "share_of_late_cases_still_open_at_export": 0.7288,
+    "parking_enforcement": {
+      "n": 92269,
+      "share_of_study_population": 0.2446,
+      "late_rate": 0.7849,
+      "share_still_open_at_export": 0.7677,
+      "share_of_all_late_cases": 0.5283
+    }
+  },
+  "permutation_importance_test_roc_auc_drop": {
+    "type": {
+      "mean": 0.31534,
+      "std": 0.00236
+    },
+    "sla_hours": {
+      "mean": 0.01128,
+      "std": 0.00029
+    },
+    "type_late_rate_30d": {
+      "mean": 0.01042,
+      "std": 0.00041
+    },
+    "hour": {
+      "mean": 0.00705,
+      "std": 0.00047
+    },
+    "source": {
+      "mean": 0.00471,
+      "std": 0.00028
+    },
+    "zipcode": {
+      "mean": 0.00349,
+      "std": 0.00036
+    },
+    "neighborhood": {
+      "mean": 0.00258,
+      "std": 0.00015
+    },
+    "type_vol_7d": {
+      "mean": 0.002,
+      "std": 0.00022
+    },
+    "dayofweek": {
+      "mean": 0.00141,
+      "std": 0.0001
+    },
+    "longitude": {
+      "mean": 0.00118,
+      "std": 8e-05
+    },
+    "ward": {
+      "mean": 0.00117,
+      "std": 2e-05
+    },
+    "type_deadlines_30d": {
+      "mean": 0.00082,
+      "std": 0.00011
+    },
+    "latitude": {
+      "mean": 0.00063,
+      "std": 0.00017
+    },
+    "pwd_district": {
+      "mean": 0.00034,
+      "std": 5e-05
+    },
+    "subject_vol_7d": {
+      "mean": 0.00024,
+      "std": 8e-05
+    },
+    "city_council_district": {
+      "mean": 0.00016,
+      "std": 4e-05
+    },
+    "city_vol_1d": {
+      "mean": 0.00013,
+      "std": 0.00022
+    },
+    "police_district": {
+      "mean": 9e-05,
+      "std": 3e-05
+    },
+    "reason": {
+      "mean": 4e-05,
+      "std": 2e-05
+    },
+    "is_holiday": {
+      "mean": 2e-05,
+      "std": 3e-05
+    },
+    "subject": {
+      "mean": 0.0,
+      "std": 0.0
+    },
+    "is_weekend": {
+      "mean": 0.0,
+      "std": 0.0
+    },
+    "type_backlog_30d": {
+      "mean": -0.0001,
+      "std": 6e-05
+    },
+    "month": {
+      "mean": -0.00011,
+      "std": 0.00016
+    },
+    "city_backlog_30d": {
+      "mean": -0.00013,
+      "std": 0.00012
+    },
+    "subject_late_rate_30d": {
+      "mean": -0.00038,
+      "std": 7e-05
+    },
+    "subject_backlog_30d": {
+      "mean": -0.00063,
+      "std": 8e-05
+    }
+  },
+  "overall_late_rate_study_population": 0.3634136512111314,
+  "top_types_by_late_rate_min_1000": {
+    "Recycling Cart Return": {
+      "n": 6165,
+      "late_rate": 0.9024
+    },
+    "Sidewalk Repair (Make Safe)": {
+      "n": 10299,
+      "late_rate": 0.8086
+    },
+    "Parking Enforcement": {
+      "n": 92269,
+      "late_rate": 0.7849
+    },
+    "Sign Repair": {
+      "n": 10063,
+      "late_rate": 0.7841
+    },
+    "Work w/out Permit": {
+      "n": 1225,
+      "late_rate": 0.68
+    },
+    "Street Light Outages": {
+      "n": 2917,
+      "late_rate": 0.6623
+    },
+    "Request for Pothole Repair": {
+      "n": 19492,
+      "late_rate": 0.5922
+    },
+    "PWD Graffiti": {
+      "n": 1467,
+      "late_rate": 0.5876
+    },
+    "Abandoned Vehicles": {
+      "n": 8023,
+      "late_rate": 0.4953
+    },
+    "Equipment Repair": {
+      "n": 3227,
+      "late_rate": 0.4087
+    }
+  },
+  "neighborhoods_observed_vs_expected": {
+    "Fenway / Kenmore / Audubon Circle / Longwood": {
+      "n": 6752,
+      "late_rate": 0.4379,
+      "expected": 0.3938,
+      "excess": 0.0442
+    },
+    "Charlestown": {
+      "n": 11521,
+      "late_rate": 0.4882,
+      "expected": 0.453,
+      "excess": 0.0353
+    },
+    "Downtown / Financial District": {
+      "n": 22702,
+      "late_rate": 0.4128,
+      "expected": 0.3817,
+      "excess": 0.0312
+    },
+    "Back Bay": {
+      "n": 19672,
+      "late_rate": 0.344,
+      "expected": 0.3135,
+      "excess": 0.0305
+    },
+    "Boston (unspecified)": {
+      "n": 15693,
+      "late_rate": 0.462,
+      "expected": 0.4385,
+      "excess": 0.0235
+    },
+    "Allston / Brighton": {
+      "n": 37196,
+      "late_rate": 0.3624,
+      "expected": 0.3401,
+      "excess": 0.0223
+    },
+    "Jamaica Plain": {
+      "n": 22096,
+      "late_rate": 0.3841,
+      "expected": 0.3707,
+      "excess": 0.0134
+    },
+    "West Roxbury": {
+      "n": 10518,
+      "late_rate": 0.3611,
+      "expected": 0.3481,
+      "excess": 0.013
+    },
+    "Roslindale": {
+      "n": 13912,
+      "late_rate": 0.4015,
+      "expected": 0.3942,
+      "excess": 0.0073
+    },
+    "Mission Hill": {
+      "n": 6452,
+      "late_rate": 0.3633,
+      "expected": 0.3583,
+      "excess": 0.005
+    },
+    "South End": {
+      "n": 27285,
+      "late_rate": 0.3296,
+      "expected": 0.3246,
+      "excess": 0.0049
+    },
+    "Beacon Hill": {
+      "n": 12100,
+      "late_rate": 0.2062,
+      "expected": 0.2057,
+      "excess": 0.0005
+    },
+    "Hyde Park": {
+      "n": 13049,
+      "late_rate": 0.3568,
+      "expected": 0.3598,
+      "excess": -0.0029
+    },
+    "Greater Mattapan": {
+      "n": 14503,
+      "late_rate": 0.3066,
+      "expected": 0.3126,
+      "excess": -0.006
+    },
+    "Roxbury": {
+      "n": 30729,
+      "late_rate": 0.2959,
+      "expected": 0.3066,
+      "excess": -0.0107
+    },
+    "Dorchester": {
+      "n": 50440,
+      "late_rate": 0.3294,
+      "expected": 0.3491,
+      "excess": -0.0196
+    },
+    "East Boston": {
+      "n": 25909,
+      "late_rate": 0.3637,
+      "expected": 0.3927,
+      "excess": -0.029
+    },
+    "South Boston / South Boston Waterfront": {
+      "n": 34500,
+      "late_rate": 0.437,
+      "expected": 0.4873,
+      "excess": -0.0504
+    }
+  },
+  "departments": {
+    "Transportation - Traffic Division": {
+      "n": 121192,
+      "late_rate": 0.7246
+    },
+    "Parks & Recreation Department": {
+      "n": 8148,
+      "late_rate": 0.2824
+    },
+    "Inspectional Services": {
+      "n": 18753,
+      "late_rate": 0.233
+    },
+    "Mayor's 24 Hour Hotline": {
+      "n": 1469,
+      "late_rate": 0.2233
+    },
+    "Public Works Department": {
+      "n": 223311,
+      "late_rate": 0.1867
+    },
+    "Property Management": {
+      "n": 4295,
+      "late_rate": 0.1302
+    }
+  },
+  "late_rate_by_dayofweek_mon0": {
+    "0": 0.349,
+    "1": 0.3327,
+    "2": 0.3473,
+    "3": 0.3784,
+    "4": 0.4042,
+    "5": 0.3855,
+    "6": 0.3635
+  },
+  "late_rate_by_hour": {
+    "0": 0.3173,
+    "1": 0.2776,
+    "2": 0.1999,
+    "3": 0.1373,
+    "4": 0.2627,
+    "5": 0.3667,
+    "6": 0.3614,
+    "7": 0.3591,
+    "8": 0.3695,
+    "9": 0.371,
+    "10": 0.3788,
+    "11": 0.3817,
+    "12": 0.3862,
+    "13": 0.3695,
+    "14": 0.3473,
+    "15": 0.3411,
+    "16": 0.3435,
+    "17": 0.3519,
+    "18": 0.369,
+    "19": 0.3834,
+    "20": 0.387,
+    "21": 0.4044,
+    "22": 0.3844,
+    "23": 0.3624
+  },
+  "runtime_seconds": {
+    "data loaded: 556,561 legacy cases, study population 377,168": 11.5,
+    "features built": 12.1,
+    "univariate leakage scan done; max single-feature AUC 0.914; flagged=[]": 12.8,
+    "LR selection: best C=0.03 (val AUC 0.9260)": 21.2,
+    "HGB config {'learning_rate': 0.1, 'max_leaf_nodes': 31, 'min_samples_leaf': 100} scored": 28.2,
+    "HGB config {'learning_rate': 0.1, 'max_leaf_nodes': 63, 'min_samples_leaf': 100} scored": 37.2,
+    "HGB config {'learning_rate': 0.05, 'max_leaf_nodes': 63, 'min_samples_leaf': 100} scored": 46.5,
+    "final models fitted on all of 2025": 56.8,
+    "test metrics computed": 59.1,
+    "leakage demo: AUC with case_status leaked in = 0.9595": 67.3,
+    "ablation: HGB without backlog features AUC 0.8868": 75.2,
+    "permutation importance done": 108.3,
+    "figures written": 115.8,
+    "done": 116.4
+  }
+}

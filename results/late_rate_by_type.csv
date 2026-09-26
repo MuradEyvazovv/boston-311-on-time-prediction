@@ -1,0 +1,116 @@
+type,n,late_rate,expected
+Parking Enforcement,92269,0.7849,0.7849
+Requests for Street Cleaning,31925,0.1016,0.1016
+Improper Storage of Trash (Barrels),30139,0.0108,0.0108
+CE Collection,25325,0.0141,0.0141
+Request for Pothole Repair,19492,0.5922,0.5922
+Unshoveled Sidewalk,18209,0.1012,0.1012
+Missed Trash/Recycling/Yard Waste/Bulk Item,15048,0.0307,0.0307
+Request for Snow Plowing,13442,0.3155,0.3155
+Poor Conditions of Property,13405,0.0105,0.0105
+Pick up Dead Animal,11949,0.0725,0.0725
+Sidewalk Repair (Make Safe),10299,0.8086,0.8086
+Sign Repair,10063,0.7841,0.7841
+Abandoned Vehicles,8023,0.4953,0.4953
+Rodent Activity,7606,0.0126,0.0126
+Traffic Signal Inspection,7198,0.298,0.298
+Request for Recycling Cart,6355,0.0453,0.0453
+Recycling Cart Return,6165,0.9024,0.9024
+Illegal Dumping,5352,0.0374,0.0374
+Graffiti Removal,4295,0.1302,0.1302
+Empty Litter Basket,3986,0.1237,0.1237
+Sticker Request,3606,0.0094,0.0094
+Ground Maintenance,3605,0.1994,0.1994
+Equipment Repair,3227,0.4087,0.4087
+Street Light Outages,2917,0.6623,0.6623
+Contractor Complaints,2065,0.2978,0.2978
+Heat - Excessive  Insufficient,1817,0.1723,0.1723
+PWD Graffiti,1467,0.5876,0.5876
+New Sign  Crosswalk or Pavement Marking,1363,0.226,0.226
+General Comments For a Program or Policy,1279,0.2361,0.2361
+Work w/out Permit,1225,0.68,0.68
+Requests for Traffic Signal Studies or Reviews,1088,0.2822,0.2822
+Maintenance Complaint - Residential,933,0.284,0.284
+Electrical,907,0.3682,0.3682
+Building Inspection Request,880,0.5239,0.5239
+Unsanitary Conditions - Establishment,856,0.25,0.25
+Tree Emergencies,700,0.0457,0.0457
+Missing Sign,595,0.8017,0.8017
+Parks Lighting/Electrical Issues,562,0.3897,0.3897
+Unsafe Dangerous Conditions,493,0.785,0.785
+Protection of Adjoining Property,374,0.7219,0.7219
+Unsanitary Conditions - Food,315,0.2254,0.2254
+Unsatisfactory Utilities - Electrical  Plumbing,295,0.1051,0.1051
+Street Light Knock Downs,292,0.2021,0.2021
+Chronic Dampness/Mold,285,0.3298,0.3298
+Construction Debris,270,0.0296,0.0296
+Illegal Auto Body Shop,268,0.1455,0.1455
+Food Alert - Confirmed,245,0.2857,0.2857
+Work Hours-Loud Noise Complaints,243,0.1152,0.1152
+Major System Failure,234,0.3462,0.3462
+General Traffic Engineering Request,232,0.1466,0.1466
+Illegal Vending,230,0.0304,0.0304
+Short Term Rental,228,0.4035,0.4035
+Illegal Posting of Signs,224,0.125,0.125
+General Lighting Request,202,0.3416,0.3416
+Food Alert - Unconfirmed,192,0.2344,0.2344
+Parking on Front/Back Yards (Illegal Parking),189,0.1323,0.1323
+Student Move-in Issues,188,0.1383,0.1383
+Cross Metering - Sub-Metering,185,0.3351,0.3351
+Maintenance - Homeowner,181,0.7072,0.7072
+Overflowing or Un-kept Dumpster,168,0.0952,0.0952
+Exceeding Terms of Permit,157,0.3949,0.3949
+Abandoned Building,147,0.4626,0.4626
+Illegal Occupancy,144,0.7153,0.7153
+No Utilities Residential - Water,142,0.1901,0.1901
+Request for Litter Basket Installation,127,0.0315,0.0315
+Parking Meter Repairs,126,0.8175,0.8175
+Pavement Marking Inspection,116,0.8534,0.8534
+Plumbing,103,0.5728,0.5728
+Illegal Rooming House,95,0.7158,0.7158
+Municipal Parking Lot Complaints,71,0.2958,0.2958
+No Utilities Residential - Electricity,64,0.25,0.25
+Trash on Vacant Lot,63,0.0317,0.0317
+No-Tow Complaint Confirmation,63,0.254,0.254
+Unsanitary Conditions - Employees,54,0.2407,0.2407
+Zoning,53,0.7358,0.7358
+Fire in Food Establishment,43,0.3023,0.3023
+Cemetery Maintenance Request,37,0.2432,0.2432
+Pigeon Infestation,33,0.2121,0.2121
+Poor Ventilation,32,0.0625,0.0625
+Pole Compliance,29,0.3448,0.3448
+Valet Parking Problems,24,0.75,0.75
+Scanning Overcharge,23,0.6522,0.6522
+Mechanical,22,0.5455,0.5455
+No Utilities Residential - Gas,20,0.15,0.15
+Mosquitoes (West Nile),19,0.2105,0.2105
+Install New Lighting,18,0.5556,0.5556
+Planting,17,0.1765,0.1765
+Private Parking Lot Complaints,16,0.5,0.5
+Rental Unit Delivery Conditions,15,0.2,0.2
+Carbon Monoxide,13,0.1538,0.1538
+Knockdown Replacement,12,0.25,0.25
+No Utilities - Food Establishment - Water,12,0.5,0.5
+Item Price Missing,12,0.6667,0.6667
+Upgrade Existing Lighting,11,0.6364,0.6364
+No Utilities - Food Establishment - Sewer,7,0.1429,0.1429
+Unit Pricing Wrong/Missing,7,0.8571,0.8571
+Occupying W/Out A Valid CO/CI,6,0.3333,0.3333
+Short Measure - Gas,6,0.8333,0.8333
+Transportation General Request,6,1.0,1.0
+News Boxes,5,0.2,0.2
+Utility Call-In,5,0.2,0.2
+Public Works General Request,4,1.0,1.0
+Snow/Ice Control,3,0.6667,0.6667
+StreetLight Pole WO,2,0.0,0.0
+Roadway Repair,2,1.0,1.0
+No Price on Gas/Wrong Price,2,0.0,0.0
+Product Short Measure,2,0.5,0.5
+Illegal Use,1,0.0,0.0
+Oil Truck - No Receipt,1,0.0,0.0
+Encampments,1,0.0,0.0
+Contractors Complaint,1,1.0,1.0
+Sign Shop WO,1,1.0,1.0
+Requests for Directional or Roadway Changes,1,1.0,1.0
+Boston Public Health Commission (BPHC),1,1.0,1.0
+Needle Pickup,1,0.0,0.0

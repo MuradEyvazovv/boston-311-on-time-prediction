@@ -1,0 +1,19 @@
+neighborhood,n,late_rate,expected,excess
+Fenway / Kenmore / Audubon Circle / Longwood,6752,0.4379,0.3938,0.0442
+Charlestown,11521,0.4882,0.453,0.0353
+Downtown / Financial District,22702,0.4128,0.3817,0.0312
+Back Bay,19672,0.344,0.3135,0.0305
+Boston (unspecified),15693,0.462,0.4385,0.0235
+Allston / Brighton,37196,0.3624,0.3401,0.0223
+Jamaica Plain,22096,0.3841,0.3707,0.0134
+West Roxbury,10518,0.3611,0.3481,0.013
+Roslindale,13912,0.4015,0.3942,0.0073
+Mission Hill,6452,0.3633,0.3583,0.005
+South End,27285,0.3296,0.3246,0.0049
+Beacon Hill,12100,0.2062,0.2057,0.0005
+Hyde Park,13049,0.3568,0.3598,-0.0029
+Greater Mattapan,14503,0.3066,0.3126,-0.006
+Roxbury,30729,0.2959,0.3066,-0.0107
+Dorchester,50440,0.3294,0.3491,-0.0196
+East Boston,25909,0.3637,0.3927,-0.029
+South Boston / South Boston Waterfront,34500,0.437,0.4873,-0.0504

@@ -1,0 +1,19 @@
+# raw + processed data (re-create with `python src/download.py` and `python train.py`)
+data/
+
+# trained model files
+models/
+*.joblib
+*.pkl
+
+# python / environments
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
