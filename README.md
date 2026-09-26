@@ -2,7 +2,7 @@
 
 Predicting, at the moment a Boston 311 service request is submitted, whether the City will miss its own service-level (SLA) deadline. The model is trained on 2025 and tested on January–June 2026.
 
-This project builds on my earlier descriptive project, *boston-311-service-analysis*. That one charted request volumes and average response times. This one asks a forward-looking question and tests the answer honestly.
+This project builds on my earlier descriptive project, [boston-311-service-analysis](https://github.com/MuradEyvazovv/boston-311-service-analysis). That one charted request volumes and average response times. This one asks a forward-looking question and tests the answer honestly.
 
 ![Test-set ROC, precision-recall and precision-at-budget curves](figures/test_curves.png)
 
