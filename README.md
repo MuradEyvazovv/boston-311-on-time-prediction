@@ -58,4 +58,4 @@ The City keeps updating the 2026 files, so a new download will give slightly dif
 
 ---
 
-Built with AI assistance (Claude). Data © City of Boston, published on Analyze Boston under the ODC PDDL. Code released under the MIT License (see `LICENSE`).
+Data © City of Boston, published on Analyze Boston under the ODC PDDL. Code released under the MIT License (see `LICENSE`).
